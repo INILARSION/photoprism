@@ -285,6 +285,21 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile v-show="$config.feature('memories')" :to="{ name: 'memories' }" class="nav-memories"
+                     @click.stop="">
+          <v-list-tile-action :title="$gettext('Memories')">
+            <v-icon>memory</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title class="p-flex-menuitem">
+              <translate key="Memories">Memories</translate>
+              <span v-show="config.count.memories > 0"
+                    :class="`nav-count ${rtl ? '--rtl' : ''}`">{{ config.count.memories | abbreviateCount }}</span>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile v-show="$config.feature('moments')" :to="{ name: 'calendar' }" class="nav-calendar" @click.stop="">
           <v-list-tile-action :title="$gettext('Calendar')">
             <v-icon>date_range</v-icon>

@@ -80,6 +80,21 @@
 
             <v-flex xs12 sm6 lg3 class="px-2 pb-2 pt-2">
               <v-checkbox
+                  v-model="settings.features.memories"
+                  :disabled="busy"
+                  class="ma-0 pa-0 input-memories"
+                  color="secondary-dark"
+                  :label="$gettext('Memories')"
+                  :hint="$gettext('Automatically creates memories of events that happened on this day.')"
+                  prepend-icon="memory"
+                  persistent-hint
+                  @change="onChange"
+              >
+              </v-checkbox>
+            </v-flex>
+
+            <v-flex xs12 sm6 lg3 class="px-2 pb-2 pt-2">
+              <v-checkbox
                 v-model="settings.features.labels"
                 :disabled="busy"
                 class="ma-0 pa-0 input-labels"

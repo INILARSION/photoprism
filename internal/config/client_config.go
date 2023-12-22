@@ -159,6 +159,7 @@ type ClientCounts struct {
 	Places         int `json:"places"`
 	Labels         int `json:"labels"`
 	LabelMaxPhotos int `json:"labelMaxPhotos"`
+	Memories       int `json:"memories"`
 }
 
 type CategoryLabels []CategoryLabel
@@ -545,6 +546,30 @@ func (c *Config) ClientUser(withSettings bool) ClientConfig {
 				"0 AS private").
 			Where("photos.id NOT IN (SELECT photo_id FROM files WHERE file_primary = 1 AND (file_missing = 1 OR file_error <> ''))").
 			Where("deleted_at IS NULL").
+			Take(&cfg.Count)
+	}
+
+	now := time.Now()
+	day := now.Format("02")
+	month := now.Format("01")
+	//Where(fmt.Sprintf("photos.photo_month = %s", month)).
+	//	Where(fmt.Sprintf("photos.photo_day = %s", day)).
+	if hidePrivate {
+		c.Db().
+			Table("photos").
+			Select("COUNT(*) AS memories").
+			Where("photos.photo_private = 0").
+			Where("photos.photo_month = ?", month).
+			Where("photos.photo_day = ?", day).
+			Where("photos.deleted_at IS NULL").
+			Take(&cfg.Count)
+	} else {
+		c.Db().
+			Table("photos").
+			Select("COUNT(*) AS memories").
+			Where("photos.photo_month = ?", month).
+			Where("photos.photo_day = ?", day).
+			Where("photos.deleted_at IS NULL").
 			Take(&cfg.Count)
 	}
 

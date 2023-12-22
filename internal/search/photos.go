@@ -604,7 +604,13 @@ func searchPhotos(f form.SearchPhotos, sess *entity.Session, resultCols string) 
 	}
 
 	// Filter by media type.
-	if txt.NotEmpty(f.Type) {
+	if f.Type == "memories" {
+		now := time.Now()
+		day := now.Format("02")
+		month := now.Format("01")
+		s = s.Where("photos.photo_day = ?", day).
+			Where("photos.photo_month = ?", month)
+	} else if txt.NotEmpty(f.Type) {
 		s = s.Where("photos.photo_type IN (?)", SplitOr(strings.ToLower(f.Type)))
 	} else if f.Video {
 		s = s.Where("photos.photo_type = ?", entity.MediaVideo)

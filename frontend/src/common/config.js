@@ -191,6 +191,8 @@ export default class Config {
       this.values.count.states -= values.count.private_states;
     }
 
+    this.values.count.memories = values.count.memories
+
     return this;
   }
 

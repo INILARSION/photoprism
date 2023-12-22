@@ -1782,6 +1782,9 @@ msgstr ""
 msgid "Moments"
 msgstr ""
 
+msgid "Memories"
+msgstr ""
+
 #: src/component/navigation.vue:81
 msgid "Monochrome"
 msgstr ""

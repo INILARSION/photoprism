@@ -169,6 +169,13 @@ export default [
     meta: { collectionTitle: "Moments", collectionRoute: "moments", auth: true },
   },
   {
+    name: "memories",
+    path: "/memories",
+    component: Photos,
+    meta: { title: $gettext("Memories"), auth: true },
+    props: { view: "memories", defaultOrder: "newest", staticFilter: { type: "memories" } },
+  },
+  {
     name: "albums",
     path: "/albums",
     component: Albums,
